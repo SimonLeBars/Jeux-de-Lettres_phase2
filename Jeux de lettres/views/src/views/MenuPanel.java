@@ -1,12 +1,9 @@
 package views;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.File;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,10 +28,6 @@ public class MenuPanel extends JPanel implements ActionListener{
 	
 	private JButton btnQuitter = new JButton("Quitter");
 	
-	//TODO suppr
-	private static String FILE_PREFIXE = ".."+File.separator+"Jeux de lettres"+File.separator+"resources"+File.separator+"images"+File.separator;
-
-	
 	public MenuPanel(AppFrame gameFrame) {
 		this.gameFrame = gameFrame;
 		
@@ -46,15 +39,6 @@ public class MenuPanel extends JPanel implements ActionListener{
 		this.initBtn(btnFundox);
 		this.add(Box.createRigidArea(new Dimension(0,40)));
 		this.initBtn(btnQuitter);
-		
-		//TODO suppr debut
-		Image offscreen = createImage(100, 100);
-		Image cell = Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE");
-		
-		//TODO chargement de l'image
-		
-		offscreen.getGraphics().drawImage(cell, 0, 0, 100, 100, this);
-		//TODO suppr fin
 	}
 
 	private void initBtn(JButton button) {

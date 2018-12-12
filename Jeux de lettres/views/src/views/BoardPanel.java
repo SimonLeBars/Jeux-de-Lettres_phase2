@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.io.File;
 
@@ -15,6 +15,11 @@ import Game.Gameplay.Game;
 
 public class BoardPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Game game;
 	
 	private static String FILE_PREFIXE = "Jeux de lettres"+File.separator+"resources"+File.separator+"images"+File.separator;
@@ -50,9 +55,29 @@ public class BoardPanel extends JPanel{
 				Image offscreen = createImage((int)width/boardSize, (int)heigth/boardSize);
 				Image cell = Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE");
 				
+
 				//TODO chargement de l'image
+				MediaTracker tracker = new MediaTracker(this);
+				boolean charge = false;
+				// attente du chargement via un tracker
+				tracker.addImage(offscreen, 0);
+				tracker.addImage(cell, 0);
+				try {
+					tracker.waitForID(0);
+				} catch (InterruptedException e) {
+					System.out.println("erreur tracker "+e);
+				}
+				if (offscreen==null || offscreen.getWidth(null)<0 || cell==null || cell.getWidth(null)<0){
+					System.out.println("images pas bien chargees");
+					charge=false;
+				}
+				else {
+					charge=true;
+				}
 				
-				offscreen.getGraphics().drawImage(cell, i*cellHeigth, j*cellWidth, cellWidth, cellHeigth, this);
+				if(charge) {
+					offscreen.getGraphics().drawImage(cell, i*cellHeigth, j*cellWidth, cellWidth, cellHeigth, this);
+				}
 				
 				//TODO suppr
 				System.out.println("Cell "+(i*boardSize+j)+" drawn ("+FILE_PREFIXE+"C_VIDE"+")"+" : "+i*cellHeigth+" "+j*cellWidth+" "+cellWidth+" "+cellHeigth);
