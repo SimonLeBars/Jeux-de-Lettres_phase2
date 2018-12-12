@@ -1,0 +1,206 @@
+package Game.Board;
+
+
+import Game.Gameplay.Game;
+import Game.Gameplay.Player;
+import Game.Square.*;
+import Game.Tools.Direction;
+import Game.Tools.Index2D;
+
+import java.util.ArrayList;
+
+/**
+ * Grid used to play Scrabble.
+ */
+public class ScrabbleBoard extends Board {
+    /**
+     * Width and height of the board.
+     */
+    private static final int BOARD_SIZE = 15;
+
+    /**
+     * Minimum number of letters that needs to be placed by the player.
+     */
+    private static final int MIN_LETTER_PLACED_COUNT = 1;
+
+    /**
+     * The array containing the squares (cases) of the board.
+     */
+    protected final ScrabbleSquare[][] squares;
+
+    /**
+     * Constructor placing the bonus squares on the board.
+     */
+    public ScrabbleBoard() {
+        this.squares = new ScrabbleSquare[BOARD_SIZE()][BOARD_SIZE()];
+        this.isEmpty = true;
+        for (int i = 0; i < BOARD_SIZE(); i++) {
+            for (int j = 0; j < BOARD_SIZE(); j++) {
+                if (i == BOARD_SIZE() / 2 && j == BOARD_SIZE() / 2) {
+                    this.squares[i][j] = new DoubleWordSquare();
+                } else if ((i == 0 || i == BOARD_SIZE() / 2 || i == BOARD_SIZE() - 1) && (j == 0 || j == BOARD_SIZE() / 2 || j == BOARD_SIZE() - 1)) {
+                    this.squares[i][j] = new TripleWordSquare();
+                } else if (i == BOARD_SIZE() / 4 && (j == 0 || j == BOARD_SIZE() / 2 || j == BOARD_SIZE() - 1)) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else if ((i == 0 || i == BOARD_SIZE() / 2 || i == BOARD_SIZE() - 1) && j == BOARD_SIZE() / 4) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else if (i == (BOARD_SIZE() - 1) - BOARD_SIZE() / 4 && (j == 0 || j == BOARD_SIZE() / 2 || j == BOARD_SIZE() - 1)) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else if ((i == 0 || i == BOARD_SIZE() / 2 || i == BOARD_SIZE() - 1) && j == (BOARD_SIZE() - 1) - BOARD_SIZE() / 4) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else if ((i == j || BOARD_SIZE() - 1 - i == j) && (Math.abs(BOARD_SIZE() / 2 - i) == 2)) {
+                    this.squares[i][j] = new TripleLetterSquare();
+                } else if ((i == j || BOARD_SIZE() - 1 - i == j) && (Math.abs(BOARD_SIZE() / 2 - i) == 1)) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else if (i == j || BOARD_SIZE() - 1 - i == j) {
+                    this.squares[i][j] = new DoubleWordSquare();
+                } else if ((i == 1 || i == BOARD_SIZE() - 2) && (j == 2 + (BOARD_SIZE() - 2) / 4 || j == BOARD_SIZE() - 1 - (2 + (BOARD_SIZE() - 2) / 4))) {
+                    this.squares[i][j] = new TripleLetterSquare();
+                } else if ((i == 2 + (BOARD_SIZE() - 2) / 4 || i == BOARD_SIZE() - 1 - (2 + (BOARD_SIZE() - 2) / 4)) && (j == 1 || j == BOARD_SIZE() - 2)) {
+                    this.squares[i][j] = new TripleLetterSquare();
+                } else if (Math.abs(i - (BOARD_SIZE() / 2)) == 1 && (j == (BOARD_SIZE() - 1) / 5 || j == BOARD_SIZE() - 1 - (BOARD_SIZE() - 1) / 5)) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else if ((i == (BOARD_SIZE() - 1) / 5 || i == BOARD_SIZE() - 1 - (BOARD_SIZE() - 1) / 5) && Math.abs(j - (BOARD_SIZE() / 2)) == 1) {
+                    this.squares[i][j] = new DoubleLetterSquare();
+                } else {
+                    this.squares[i][j] = new NormalSquare();
+                }
+            }
+        }
+    }
+
+    /**
+     * Getter of the board size attribute.
+     *
+     * @return Width/Height of the board.
+     */
+    @Override
+    protected int BOARD_SIZE() {
+        return BOARD_SIZE;
+    }
+
+    /**
+     * Getter of the minimum amount of letters that needs to be placed by the player.
+     *
+     * @return Minimum amount.
+     */
+    @Override
+    protected int MIN_LETTER_PLACED_COUNT() {
+        return MIN_LETTER_PLACED_COUNT;
+    }
+
+    /**
+     * Returns the square (case) at [{@code line}][{@code column}]
+     *
+     * @param line   Line index of the square.
+     * @param column Column index of the square.
+     * @return Square indicated by the parameters.
+     * @throws IllegalArgumentException If the indicated square is outside the board.
+     */
+    public ScrabbleSquare getSquare(int line, int column) throws IllegalArgumentException {
+        if (line < 0
+                || line > BOARD_SIZE()
+                || column < 0
+                || column > BOARD_SIZE()) {
+            throw new IllegalArgumentException("Trying to access square outside the board.");
+        }
+        return this.squares[line][column];
+    }
+
+
+    /**
+     * Counts the points scored by playing the word crossing the square [{@code firstSquareLine}][{@code firstSquareColumn}]
+     * following the direction {@code direction} and the words generated by playing tiles in {@code placedTiles}
+     * add them to the player {@code player}.
+     *
+     * @param firstSquareLine   Line index of the letter to start counting points from.
+     * @param firstSquareColumn Column index of the letter to start counting points from.
+     * @param direction         Direction of the placed word.
+     * @param placedTiles       List of positions where the player has placed tile in the current turn.
+     * @param player            Player to give the points to.
+     * @throws IllegalArgumentException If a square outside the grid is tried to be accessed.
+     */
+    @Override
+    protected void countPoints(int firstSquareLine, int firstSquareColumn, Direction direction, ArrayList<Index2D> placedTiles, Player player) throws IllegalArgumentException {
+        int score = countWordPoints(firstSquareLine, firstSquareColumn, direction, (placedTiles.size() == Game.TILES_COUNT_ON_RACK ? 50 : 0));
+
+        for (Index2D placedLetter : placedTiles) {
+            score += countWordPoints(placedLetter.LINE, placedLetter.COLUMN, direction.getOpposite(), 0);
+        }
+
+        markBonusesAsUsed(placedTiles);
+
+        player.addScore(score);
+    }
+
+    /**
+     * Counts the points scored by playing the word crossing the square [{@code firstSquareLine}][{@code firstSquareColumn}]
+     * following the direction {@code direction}.
+     *
+     * @param squareLine   Line index of the letter to start counting points from.
+     * @param squareColumn Column index of the letter to start counting points from.
+     * @param direction    Direction of the word.
+     * @return Points the word is worth.
+     * @throws IllegalArgumentException If a square outside the grid is tried to be accessed.
+     */
+    private int countWordPoints(int squareLine, int squareColumn, Direction direction, int bonusScore) throws IllegalArgumentException {
+        assertSquareIsNotEmpty(squareLine, squareColumn);
+
+        int firstLetter = getFirstLetterIndexOfWordAt(squareLine, squareColumn, direction);
+
+        int lastLetter = getLastLetterIndexOfWordAt(squareLine, squareColumn, direction);
+
+        int wordLength = lastLetter - firstLetter + 1;
+
+        int wordValue = bonusScore;
+        int wordMultiplier = 1;
+
+        if (wordLength > 1) {
+            for (int k = 0; k < wordLength; k++) {
+                if (direction.isHorizontal()) {
+                    wordValue += this.getSquare(squareLine, firstLetter + k).getLetterValue();
+                    wordMultiplier *= this.getSquare(squareLine, firstLetter + k).getWordMultiplier();
+                } else {
+                    wordValue += this.getSquare(firstLetter + k, squareColumn).getLetterValue();
+                    wordMultiplier = Math.max(wordMultiplier, this.getSquare(firstLetter + k, squareColumn).getWordMultiplier());
+                }
+            }
+        }
+        return wordValue * wordMultiplier;
+    }
+
+    /**
+     * Marks the bonus as used of all the squares (cases) where a tile has been placed.
+     *
+     * @param placedLetters List of positions of the tiles placed.
+     * @throws IllegalArgumentException If a square outside the grid is tried to be accessed.
+     */
+    private void markBonusesAsUsed(ArrayList<Index2D> placedLetters) throws IllegalArgumentException {
+        for (Index2D placedLetter : placedLetters) {
+            this.getSquare(placedLetter.LINE, placedLetter.COLUMN).markBonusAsUsed();
+        }
+    }
+
+    /**
+     * Returns a string representation of the board. Displays the grid with indexes.
+     *
+     * @return String representation.
+     */
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("i\\j\t");
+        for (int j = 0; j < BOARD_SIZE(); j++) {
+            str.append(Integer.toString(j).length() > 1 ? " " : "  ").append(j).append(" ");
+        }
+        for (int i = 0; i < BOARD_SIZE(); i++) {
+            str.append("\n");
+            str.append(i).append("\t");
+            for (int j = 0; j < BOARD_SIZE(); j++) {
+                str.append(this.getSquare(i, j).toString());
+            }
+        }
+        return str.toString();
+    }
+
+}
