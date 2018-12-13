@@ -22,7 +22,12 @@ public class BoardPanel extends JPanel{
 
 	private Game game;
 	
-	private static String FILE_PREFIXE = "Jeux de lettres"+File.separator+"resources"+File.separator+"images"+File.separator;
+	private static String FILE_PREFIXE = "resources"+File.separator+"images"+File.separator;
+	
+	/**
+	 * true si les images sont chargées
+	 */
+	private boolean charge = false;
 	
 	public BoardPanel(Game game) {
 		this.game = game;
@@ -34,15 +39,12 @@ public class BoardPanel extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setBackground(Color.GREEN);
-		//TODO suppr
-		/*g.setColor(Color.GREEN);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());*/
+		//this.setBackground(Color.GREEN);
 		
-		this.initCells();
+		this.initCells(g);
 	}
 
-	private void initCells() {
+	private void initCells(Graphics g) {
 		int heigth = this.getHeight();
 		int width = this.getWidth();
 		int boardSize = this.game.getBoard().getBoardSize();
@@ -50,15 +52,17 @@ public class BoardPanel extends JPanel{
 		int cellHeigth = (int)heigth/boardSize;
 		int cellWidth = (int)width/boardSize;
 		
+		Image offscreen = createImage((int)width, (int)heigth);
+		
+		//TODO sortir le chargement des images
 		for(int i = 0; i<boardSize; i++) {
 			for(int j = 0; j<boardSize; j++) {
-				Image offscreen = createImage((int)width/boardSize, (int)heigth/boardSize);
-				Image cell = Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE");
+				
+				Image cell = Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE.gif");
 				
 
-				//TODO chargement de l'image
+				//chargement de l'image
 				MediaTracker tracker = new MediaTracker(this);
-				boolean charge = false;
 				// attente du chargement via un tracker
 				tracker.addImage(offscreen, 0);
 				tracker.addImage(cell, 0);
@@ -84,5 +88,7 @@ public class BoardPanel extends JPanel{
 			}
 			
 		}
+		
+		g.drawImage(offscreen, 0, 0, this);
 	}
 }

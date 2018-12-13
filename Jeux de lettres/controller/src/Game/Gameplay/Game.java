@@ -77,7 +77,7 @@ public class Game {
 
     public static void main(String[] args) {
         try {
-            Dictionary.load("Jeux de lettres/resources/Dico.txt");
+            Dictionary.load("Dico.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
