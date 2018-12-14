@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Game.Gameplay.Game;
+import Game.Square.Square;
+import Game.Tile.Tile;
+import Game.Tools.ANSI_Color;
 
 public class BoardPanel extends JPanel{
 	
@@ -45,33 +48,30 @@ public class BoardPanel extends JPanel{
 	}
 
 	private void initCells(Graphics g) {
-		int heigth = this.getHeight();
-		int width = this.getWidth();
+		int sideLenght = Math.min(this.getHeight(), this.getWidth());
 		int boardSize = this.game.getBoard().getBoardSize();
 		
-		int cellHeigth = (int)heigth/boardSize;
-		int cellWidth = (int)width/boardSize;
+		int squareLenght = (int)sideLenght/boardSize;
 		
-		Image offscreen = createImage((int)width, (int)heigth);
+		Image offscreen = createImage(sideLenght, sideLenght);
 		
 		//TODO sortir le chargement des images
 		for(int i = 0; i<boardSize; i++) {
 			for(int j = 0; j<boardSize; j++) {
 				
-				Image cell = Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE.gif");
-				
+				Image square = getCellImage(i, j);
 
 				//chargement de l'image
 				MediaTracker tracker = new MediaTracker(this);
 				// attente du chargement via un tracker
 				tracker.addImage(offscreen, 0);
-				tracker.addImage(cell, 0);
+				tracker.addImage(square, 0);
 				try {
 					tracker.waitForID(0);
 				} catch (InterruptedException e) {
 					System.out.println("erreur tracker "+e);
 				}
-				if (offscreen==null || offscreen.getWidth(null)<0 || cell==null || cell.getWidth(null)<0){
+				if (offscreen==null || offscreen.getWidth(null)<0 || square==null || square.getWidth(null)<0){
 					System.out.println("images pas bien chargees");
 					charge=false;
 				}
@@ -80,15 +80,23 @@ public class BoardPanel extends JPanel{
 				}
 				
 				if(charge) {
-					offscreen.getGraphics().drawImage(cell, i*cellHeigth, j*cellWidth, cellWidth, cellHeigth, this);
+					offscreen.getGraphics().drawImage(square, i*squareLenght, j*squareLenght, squareLenght, squareLenght, this);
 				}
-				
-				//TODO suppr
-				System.out.println("Cell "+(i*boardSize+j)+" drawn ("+FILE_PREFIXE+"C_VIDE"+")"+" : "+i*cellHeigth+" "+j*cellWidth+" "+cellWidth+" "+cellHeigth);
 			}
 			
 		}
 		
 		g.drawImage(offscreen, 0, 0, this);
+		
+		//TODO suppr
+		game.getBoard().getSquare(3, 3).setTile(new Tile('E', 1));
+	}
+	
+	private Image getCellImage(int i, int j) {
+		Square square = this.game.getBoard().getSquare(i, j);
+		
+		if(square.getTile() != null) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_"+square.getTile().getCharacter()+".gif");
+		
+		return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE.gif");
 	}
 }
