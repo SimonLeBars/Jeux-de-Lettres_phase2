@@ -350,4 +350,20 @@ public class Game {
     public Board getBoard() {
     	return this.board;
     }
+    
+    public GameType getGameType() {
+    	return this.gameType;
+    }
+    
+    public Player getCurrentPlayer() {
+    	return this.players.get(this.currentPlayerIndex);
+    }
+    
+    public ArrayList<Player> getPlayers(){
+    	return this.players;
+    }
+    
+    public ArrayList<ANSI_Color> getPlayerColors(){
+    	return this.playerColors;
+    }
 }

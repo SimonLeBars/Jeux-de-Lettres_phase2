@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Game.Gameplay.Game;
+import Game.Gameplay.GameType;
+import Game.Square.FundoxSquare;
+import Game.Square.ScrabbleSquare;
 import Game.Square.Square;
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
@@ -34,9 +37,6 @@ public class BoardPanel extends JPanel{
 	
 	public BoardPanel(Game game) {
 		this.game = game;
-		
-		this.setSize(new Dimension(500, 500));
-		this.setBorder(new EmptyBorder(100, 100, 100, 100));
 	}
 	
 	@Override
@@ -87,16 +87,28 @@ public class BoardPanel extends JPanel{
 		}
 		
 		g.drawImage(offscreen, 0, 0, this);
-		
-		//TODO suppr
-		game.getBoard().getSquare(3, 3).setTile(new Tile('E', 1));
 	}
 	
 	private Image getCellImage(int i, int j) {
 		Square square = this.game.getBoard().getSquare(i, j);
 		
-		if(square.getTile() != null) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_"+square.getTile().getCharacter()+".gif");
+		System.out.println("getCellImage");
+		System.out.println(square.getColor().toString());
 		
-		return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE.gif");
+		if(game.getGameType()==GameType.SCRABBLE) {
+			if(square.getTile() != null) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_"+square.getTile().getCharacter()+".gif");
+			else if(i == this.game.getBoard().getBoardSize()/2 && j == this.game.getBoard().getBoardSize()/2) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_CENTRALE.gif");
+			else if(((ScrabbleSquare)square).getWordMultiplier()==3) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_MOT_COMPTE_TRIPLE.gif");
+			else if(((ScrabbleSquare)square).getWordMultiplier()==2) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_MOT_COMPTE_DOUBLE.gif");
+			else if(((ScrabbleSquare)square).getLetterMultiplier()==3) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_LETTRE_COMPTE_TRIPLE.gif");
+			else if(((ScrabbleSquare)square).getLetterMultiplier()==2) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_LETTRE_COMPTE_DOUBLE.gif");
+			else return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_VIDE.gif");
+		}else {
+			if(square.getTile() != null) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+Character.toLowerCase(square.getTile().getCharacter())+".gif");
+			else if(i == this.game.getBoard().getBoardSize()/2 && j == this.game.getBoard().getBoardSize()/2) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_CENTRALE_FUNDOX.gif");
+			else if(((FundoxSquare)square).gridShouldBeCleared()) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_ROUGE.gif");
+			else if(((FundoxSquare)square).isBonusUsed()) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_GRIS.gif");
+			else return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_JAUNE.gif");
+		}
 	}
 }

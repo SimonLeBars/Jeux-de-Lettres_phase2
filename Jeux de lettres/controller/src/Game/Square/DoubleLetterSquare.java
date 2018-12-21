@@ -44,6 +44,11 @@ public class DoubleLetterSquare extends SquareImplementation implements Scrabble
     public int getLetterValue() {
         return (this.bonusUsed ? 1 : letterMultiplier) * this.tile.getValue();
     }
+    
+    @Override
+    public int getLetterMultiplier() {
+    	return this.letterMultiplier;
+    }
 
     /**
      * Multiplier applied by this square.

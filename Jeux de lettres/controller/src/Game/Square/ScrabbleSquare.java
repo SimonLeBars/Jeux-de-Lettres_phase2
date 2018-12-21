@@ -11,6 +11,8 @@ public interface ScrabbleSquare extends Square {
      * @return Letter value bonus multiplier.
      */
     int getLetterValue();
+    
+    int getLetterMultiplier();
 
     /**
      * The coefficient by which the word's value should be multiplied.

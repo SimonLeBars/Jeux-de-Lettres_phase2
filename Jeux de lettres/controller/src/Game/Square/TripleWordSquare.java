@@ -12,7 +12,7 @@ public class TripleWordSquare extends SquareImplementation implements ScrabbleSq
     /**
      * Multiplier bonus used for Scrabble. Acts on the value of the word formed by the tile contained.
      */
-    private static final int wordMultiplier = 2;
+    private static final int wordMultiplier = 3;
 
     /**
      * Color of the square.
@@ -43,6 +43,11 @@ public class TripleWordSquare extends SquareImplementation implements ScrabbleSq
     @Override
     public int getLetterValue() {
         return (this.bonusUsed ? 1 : letterMultiplier) * this.tile.getValue();
+    }
+    
+    @Override
+    public int getLetterMultiplier() {
+    	return this.letterMultiplier;
     }
 
     /**

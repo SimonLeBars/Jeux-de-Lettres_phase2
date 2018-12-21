@@ -55,11 +55,11 @@ public class MenuPanel extends JPanel implements ActionListener{
 		}
 		
 		else if(e.getSource()==btnScrabble) {
-			gameFrame.initGamePanel(GameType.SCRABBLE);
+			gameFrame.initPlayerNumberPanel(GameType.SCRABBLE);
 		}
 		
 		else if(e.getSource()==btnFundox) {
-			gameFrame.initGamePanel(GameType.FUNDOX);
+			gameFrame.initPlayerNumberPanel(GameType.FUNDOX);
 		}
 	}
 }
