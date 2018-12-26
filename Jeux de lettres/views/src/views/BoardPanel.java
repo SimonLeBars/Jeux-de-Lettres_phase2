@@ -1,7 +1,5 @@
 package views;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
@@ -9,15 +7,12 @@ import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import Game.Gameplay.Game;
 import Game.Gameplay.GameType;
 import Game.Square.FundoxSquare;
 import Game.Square.ScrabbleSquare;
 import Game.Square.Square;
-import Game.Tile.Tile;
-import Game.Tools.ANSI_Color;
 
 public class BoardPanel extends JPanel{
 	
@@ -42,7 +37,6 @@ public class BoardPanel extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//this.setBackground(Color.GREEN);
 		
 		this.initCells(g);
 	}
@@ -91,9 +85,6 @@ public class BoardPanel extends JPanel{
 	
 	private Image getCellImage(int i, int j) {
 		Square square = this.game.getBoard().getSquare(i, j);
-		
-		System.out.println("getCellImage");
-		System.out.println(square.getColor().toString());
 		
 		if(game.getGameType()==GameType.SCRABBLE) {
 			if(square.getTile() != null) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_"+square.getTile().getCharacter()+".gif");

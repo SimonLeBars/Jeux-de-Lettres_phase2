@@ -50,8 +50,8 @@ public class AppFrame extends JFrame{
 	
 	public void initPlayerNumberPanel(GameType gameType) {
 		this.getContentPane().removeAll();
-		this.setSize(300, 300);
-		this.getContentPane().add(new PlayerNumberPanel(gameType));
+		this.setSize(300, 150);
+		this.getContentPane().add(new PlayerNumberPanel(gameType, this));
 		this.relocate();
 	}
 	
