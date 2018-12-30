@@ -1,10 +1,11 @@
-package views;
+package views.gamePanel;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -13,6 +14,8 @@ import Game.Gameplay.GameType;
 import Game.Square.FundoxSquare;
 import Game.Square.ScrabbleSquare;
 import Game.Square.Square;
+import Game.Tools.Index2D;
+import views.AppFrame;
 
 public class BoardPanel extends JPanel{
 	
@@ -23,15 +26,17 @@ public class BoardPanel extends JPanel{
 
 	private Game game;
 	
-	private static String FILE_PREFIXE = "resources"+File.separator+"images"+File.separator;
+	ArrayList<Index2D> placedTilesPosition = new ArrayList<>();
+	
+	private static final String FILE_PREFIXE = "resources"+File.separator+"images"+File.separator;
 	
 	/**
 	 * true si les images sont chargées
 	 */
 	private boolean charge = false;
 	
-	public BoardPanel(Game game) {
-		this.game = game;
+	public BoardPanel() {
+		this.game = AppFrame.game;
 	}
 	
 	@Override

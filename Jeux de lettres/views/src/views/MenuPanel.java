@@ -19,8 +19,6 @@ public class MenuPanel extends JPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private AppFrame gameFrame;
 	
 	private JButton btnScrabble = new JButton("Nouvelle partie de Scrabble");
 	
@@ -28,8 +26,7 @@ public class MenuPanel extends JPanel implements ActionListener{
 	
 	private JButton btnQuitter = new JButton("Quitter");
 	
-	public MenuPanel(AppFrame gameFrame) {
-		this.gameFrame = gameFrame;
+	public MenuPanel() {
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -51,15 +48,15 @@ public class MenuPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.btnQuitter) {
-			gameFrame.dispatchEvent(new WindowEvent(gameFrame, WindowEvent.WINDOW_CLOSING));
+			AppFrame.appframe.dispatchEvent(new WindowEvent(AppFrame.appframe, WindowEvent.WINDOW_CLOSING));
 		}
 		
 		else if(e.getSource()==btnScrabble) {
-			gameFrame.initPlayerNumberPanel(GameType.SCRABBLE);
+			AppFrame.appframe.initPlayerNumberPanel(GameType.SCRABBLE);
 		}
 		
 		else if(e.getSource()==btnFundox) {
-			gameFrame.initPlayerNumberPanel(GameType.FUNDOX);
+			AppFrame.appframe.initPlayerNumberPanel(GameType.FUNDOX);
 		}
 	}
 }

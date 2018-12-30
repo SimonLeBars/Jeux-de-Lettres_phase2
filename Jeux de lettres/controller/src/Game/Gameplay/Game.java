@@ -39,7 +39,8 @@ public class Game {
      * Rack used by all players in Fundox.
      */
     private final ArrayList<Tile> commonRack = new ArrayList<>();
-    /**
+
+	/**
      * Default colors of players. Ordered to easily differentiate the players when there are only a few.
      */
     private final ArrayList<ANSI_Color> playerColors = new ArrayList<>(Arrays.asList(ANSI_Color.RED, ANSI_Color.BLUE, ANSI_Color.YELLOW, ANSI_Color.GREEN, ANSI_Color.PURPLE, ANSI_Color.CYAN));
@@ -366,4 +367,8 @@ public class Game {
     public ArrayList<ANSI_Color> getPlayerColors(){
     	return this.playerColors;
     }
+    
+    public ArrayList<Tile> getCommonRack() {
+		return commonRack;
+	}
 }

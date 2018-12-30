@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +13,8 @@ import Game.Gameplay.Game;
 import Game.Gameplay.GameType;
 import Game.Gameplay.Player;
 import Game.Tools.ANSI_Color;
+import views.gamePanel.BoardPanel;
+import views.gamePanel.ControlPanel;
 
 public class GamePanel extends JPanel{
 	
@@ -23,17 +24,16 @@ public class GamePanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	private static final String fileDicoPath = ".."+File.separator+"resources"+File.separator+"Dico.txt";
-
-	private AppFrame gameFrame;
 	
-	private Game game;
+	private static final int DEFAULT_HEIGHT = 600;
+	
+	private static final int DEFAULT_WIDTH = 800;
 	
 	private BoardPanel boardPanel;
 	
 	private ControlPanel controlPanel;
 
-	public GamePanel(AppFrame gameFrame, GameType gameType, int nbPlayers) {
-		this.gameFrame = gameFrame;
+	public GamePanel(GameType gameType, int nbPlayers) {
 		
 		try {
             Dictionary.load(fileDicoPath);
@@ -41,12 +41,12 @@ public class GamePanel extends JPanel{
             e.printStackTrace();
         }
 
-        this.game = new Game(gameType);
-        this.game.setupBoardAndRacks();
-        
+        AppFrame.game = new Game(gameType);
         this.setupPlayers(nbPlayers);
         
-        this.setSize(new Dimension(800, 600));
+        AppFrame.game.setupBoardAndRacks();
+        
+        this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         
         this.initBoardPanel();
@@ -55,22 +55,21 @@ public class GamePanel extends JPanel{
 
 	private void setupPlayers(int nbPlayers) {
 		for(int i = 1; i<nbPlayers+1; i++) {
-			if(game.getGameType()==GameType.SCRABBLE || i==1) {
-				this.game.getPlayers().add(new Player("Player "+i, new ArrayList<>(), (i < this.game.getPlayerColors().size() ? this.game.getPlayerColors().get(i) : ANSI_Color.RESET)));
+			if(AppFrame.game.getGameType()==GameType.SCRABBLE || i==1) {
+				AppFrame.game.getPlayers().add(new Player("Player "+i, new ArrayList<>(), (i < AppFrame.game.getPlayerColors().size() ? AppFrame.game.getPlayerColors().get(i) : ANSI_Color.RESET)));
 			}else {
-				this.game.getPlayers().add(new Player("Player "+i, this.game.getCurrentPlayer().getRack(), (i < this.game.getPlayerColors().size() ? this.game.getPlayerColors().get(i) : ANSI_Color.RESET)));
+				AppFrame.game.getPlayers().add(new Player("Player "+i, AppFrame.game.getCommonRack(), (i < AppFrame.game.getPlayerColors().size() ? AppFrame.game.getPlayerColors().get(i) : ANSI_Color.RESET)));
 			}
 		}
 	}
 
-	private void initControlPanel() { 
-		this.controlPanel = new ControlPanel(game, this.gameFrame);
+	private void initControlPanel() {
+		this.controlPanel = new ControlPanel();
 		this.add(this.controlPanel);
-		
 	}
 
 	private void initBoardPanel() {
-		this.boardPanel = new BoardPanel(game);
+		this.boardPanel = new BoardPanel();
 		this.add(this.boardPanel);
 	}
 }

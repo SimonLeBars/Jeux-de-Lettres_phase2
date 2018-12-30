@@ -9,18 +9,16 @@ import views.AppFrame;
 public class BtnPlayerNumberListener implements ActionListener{
 
 	private int nbPlayers;
-	private AppFrame gameFrame;
 	private GameType gameType;
 	
-	public BtnPlayerNumberListener(int nbPlayers, GameType gameType, AppFrame gameFrame) {
+	public BtnPlayerNumberListener(int nbPlayers, GameType gameType) {
 		this.nbPlayers = nbPlayers;
-		this.gameFrame = gameFrame;
 		this.gameType = gameType;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.gameFrame.initGamePanel(this.gameType, this.nbPlayers);
+		AppFrame.appframe.initGamePanel(this.gameType, this.nbPlayers);
 	}
 
 }

@@ -5,9 +5,14 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import Game.Gameplay.Game;
 import Game.Gameplay.GameType;
 
 public class AppFrame extends JFrame{
+	
+	public static Game game;
+	
+	public static AppFrame appframe;
 
 	/**
 	 * 
@@ -15,7 +20,7 @@ public class AppFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
-		new AppFrame();
+		AppFrame.appframe = new AppFrame();
 	}
 	
 	public AppFrame() {
@@ -44,21 +49,21 @@ public class AppFrame extends JFrame{
 	public void initMenuPanel() {
 		this.getContentPane().removeAll();
 		this.setSize(300, 300);
-		this.getContentPane().add(new MenuPanel(this));
+		this.getContentPane().add(new MenuPanel());
 		this.relocate();
 	}
 	
 	public void initPlayerNumberPanel(GameType gameType) {
 		this.getContentPane().removeAll();
 		this.setSize(300, 150);
-		this.getContentPane().add(new PlayerNumberPanel(gameType, this));
+		this.getContentPane().add(new PlayerNumberPanel(gameType));
 		this.relocate();
 	}
 	
 	public void initGamePanel(GameType gameType, int nbPlayers) {
 		this.getContentPane().removeAll();
 		this.setSize(800, 600);
-		this.getContentPane().add(new GamePanel(this, gameType, nbPlayers));
+		this.getContentPane().add(new GamePanel(gameType, nbPlayers));
 		this.relocate();
 	}
 }

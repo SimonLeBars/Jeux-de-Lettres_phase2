@@ -21,12 +21,9 @@ public class PlayerNumberPanel extends JPanel{
 	private static int MIN_JOUEURS = 2;
 	private static int MAX_JOUEURS = 4;
 	
-	private AppFrame gameFrame;
-	
 	private JLabel nbJoueursLabel = new JLabel("Combien de joueurs ?");
 	
-	public PlayerNumberPanel(GameType gameType, AppFrame gameFrame) {
-		this.gameFrame = gameFrame;
+	public PlayerNumberPanel(GameType gameType) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(nbJoueursLabel);
 		JPanel btnPanel = new JPanel();
@@ -34,7 +31,7 @@ public class PlayerNumberPanel extends JPanel{
 		
 		for(int i = MIN_JOUEURS; i<MAX_JOUEURS+1; i++) {
 			JButton btnNbPlayers = new JButton(Integer.toString(i));
-			btnNbPlayers.addActionListener(new BtnPlayerNumberListener(i, gameType, gameFrame));
+			btnNbPlayers.addActionListener(new BtnPlayerNumberListener(i, gameType));
 			btnPanel.add(btnNbPlayers);
 			btnPanel.add(Box.createRigidArea(new Dimension(0,40)));
 		}
