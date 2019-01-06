@@ -13,6 +13,8 @@ public class AppFrame extends JFrame{
 	public static Game game;
 	
 	public static AppFrame appframe;
+	
+	public GamePanel gamePanel;
 
 	/**
 	 * 
@@ -36,7 +38,6 @@ public class AppFrame extends JFrame{
 		this.repaint();
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
 		Dimension gameFrameSize = this.getSize();
 		
 		int locationX = Math.round((float) ((screenSize.getWidth()-gameFrameSize.getWidth())/2));
@@ -63,7 +64,15 @@ public class AppFrame extends JFrame{
 	public void initGamePanel(GameType gameType, int nbPlayers) {
 		this.getContentPane().removeAll();
 		this.setSize(800, 600);
-		this.getContentPane().add(new GamePanel(gameType, nbPlayers));
+		this.gamePanel = new GamePanel(gameType, nbPlayers);
+		this.getContentPane().add(gamePanel);
 		this.relocate();
+	}
+	
+	public void updateGamePanel() {
+		this.gamePanel.updatePanel();
+		Dimension gameFrameSize = this.getSize();
+		this.setSize(gameFrameSize.width+1, gameFrameSize.height+1);
+		this.setSize(gameFrameSize.width, gameFrameSize.height);
 	}
 }

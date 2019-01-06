@@ -15,7 +15,9 @@ import Game.Square.FundoxSquare;
 import Game.Square.ScrabbleSquare;
 import Game.Square.Square;
 import Game.Tools.Index2D;
+import listeners.BoardListener;
 import views.AppFrame;
+import views.GamePanel;
 
 public class BoardPanel extends JPanel{
 	
@@ -26,7 +28,7 @@ public class BoardPanel extends JPanel{
 
 	private Game game;
 	
-	ArrayList<Index2D> placedTilesPosition = new ArrayList<>();
+	private GamePanel gamePanel;
 	
 	private static final String FILE_PREFIXE = "resources"+File.separator+"images"+File.separator;
 	
@@ -35,8 +37,11 @@ public class BoardPanel extends JPanel{
 	 */
 	private boolean charge = false;
 	
-	public BoardPanel() {
+	public BoardPanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
 		this.game = AppFrame.game;
+		
+		this.addMouseListener(new BoardListener(gamePanel));
 	}
 	
 	@Override
@@ -79,7 +84,7 @@ public class BoardPanel extends JPanel{
 				}
 				
 				if(charge) {
-					offscreen.getGraphics().drawImage(square, i*squareLenght, j*squareLenght, squareLenght, squareLenght, this);
+					offscreen.getGraphics().drawImage(square, j*squareLenght, i*squareLenght, squareLenght, squareLenght, this);
 				}
 			}
 			
@@ -106,5 +111,13 @@ public class BoardPanel extends JPanel{
 			else if(((FundoxSquare)square).isBonusUsed()) return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_GRIS.gif");
 			else return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"C_JAUNE.gif");
 		}
+	}
+
+	public ArrayList<Index2D> getPlacedTilesPosition() {
+		return this.gamePanel.getPlacedTilesPosition();
+	}
+	
+	public GamePanel getGamePanel() {
+		return this.gamePanel;
 	}
 }

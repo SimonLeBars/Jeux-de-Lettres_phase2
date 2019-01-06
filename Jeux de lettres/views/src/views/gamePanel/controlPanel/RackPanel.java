@@ -19,6 +19,8 @@ import javax.swing.border.LineBorder;
 import Game.Gameplay.Player;
 import Game.Tile.Tile;
 import listeners.RackListener;
+import views.GamePanel;
+import views.gamePanel.BoardPanel;
 
 
 public class RackPanel extends JPanel{
@@ -36,10 +38,17 @@ public class RackPanel extends JPanel{
 	
 	private JPanel rack;
 	
+	private GamePanel gamePanel;
+	
 	private int selected = -1;
+	
+	private ArrayList<JButton> tilesBtn;
 
-	public RackPanel(Player player) {
+	public RackPanel(Player player, GamePanel gamePanel) {
+		
+		this.gamePanel = gamePanel;
 		this.player = player;
+		this.tilesBtn = new ArrayList<JButton>();
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -56,6 +65,10 @@ public class RackPanel extends JPanel{
 		ArrayList<Tile> playerRack = player.getRack();
 
 		for(int i = 0; i<playerRack.size(); i++) {
+			
+			//TODO suppr
+			System.out.println(playerRack.get(i).getCharacter());
+			
 			JButton button = new JButton();
 			ImageIcon icon = new ImageIcon(getTileImage(i));
 			button.setIcon(icon);
@@ -63,13 +76,14 @@ public class RackPanel extends JPanel{
 				button.setBorder(new LineBorder(Color.BLUE, 5));
 				
 				//TODO suppr
-				System.out.println("Border set");
+				System.out.println("Border set : "+this.getSelected());
 				
 			}else {
 				button.setBorder(new EmptyBorder(0, 0, 0, 0));
 			}
 			button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
 			button.addActionListener(new RackListener(i, this));
+			this.tilesBtn.add(button);
 			this.rack.add(button);
 		}
 	}
@@ -90,11 +104,31 @@ public class RackPanel extends JPanel{
 		}
 	}
 	
+	@Override
+	public void repaint() {
+		super.repaint();
+		
+		if(tilesBtn!=null) {
+			for(int i = 0; i<tilesBtn.size(); i++) {
+				if(i == this.selected) {
+					tilesBtn.get(i).setBorder(new LineBorder(Color.BLUE, 5));
+					
+					//TODO suppr
+					System.out.println("Border set : "+this.getSelected());
+					
+				}else {
+					tilesBtn.get(i).setBorder(new EmptyBorder(0, 0, 0, 0));
+				}
+			}
+		}
+		
+	}
+	
 	public int getSelected() {
-		return this.selected;
+		return this.gamePanel.getSelected();
 	}
 	
 	public void setSelected(int i) {
-		this.selected = i;
+		this.gamePanel.setSelected(i);
 	}
 }

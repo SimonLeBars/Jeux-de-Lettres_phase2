@@ -3,6 +3,7 @@ package listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import views.AppFrame;
 import views.gamePanel.controlPanel.RackPanel;
 
 public class RackListener implements ActionListener{
@@ -23,7 +24,7 @@ public class RackListener implements ActionListener{
 		}else {
 			this.rackPanel.setSelected(this.index);
 		}
-		this.rackPanel.initRack();
+		AppFrame.appframe.updateGamePanel();
 	}
 
 }

@@ -371,4 +371,8 @@ public class Game {
     public ArrayList<Tile> getCommonRack() {
 		return commonRack;
 	}
+    
+    public ArrayList<Tile> getBag(){
+    	return this.bag;
+    }
 }

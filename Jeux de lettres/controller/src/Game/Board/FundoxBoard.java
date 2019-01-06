@@ -65,7 +65,7 @@ public class FundoxBoard extends Board {
      * @return Minimum amount.
      */
     @Override
-    protected int MIN_LETTER_PLACED_COUNT() {
+	public int MIN_LETTER_PLACED_COUNT() {
         return MIN_LETTER_PLACED_COUNT;
     }
 
@@ -100,7 +100,7 @@ public class FundoxBoard extends Board {
      * @throws IllegalArgumentException If a square outside the grid is tried to be accessed.
      */
     @Override
-    protected void countPoints(int firstSquareLine, int firstSquareColumn, Direction direction, ArrayList<Index2D> placedTiles, Player player) throws IllegalArgumentException {
+	public void countPoints(int firstSquareLine, int firstSquareColumn, Direction direction, ArrayList<Index2D> placedTiles, Player player) throws IllegalArgumentException {
         countWordPoints(firstSquareLine, firstSquareColumn, direction, player);
         for (Index2D placedTile : placedTiles) {
             countWordPoints(placedTile.LINE, placedTile.COLUMN, direction.getOpposite(), player);

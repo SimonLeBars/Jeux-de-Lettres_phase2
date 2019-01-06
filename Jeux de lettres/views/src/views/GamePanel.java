@@ -13,6 +13,7 @@ import Game.Gameplay.Game;
 import Game.Gameplay.GameType;
 import Game.Gameplay.Player;
 import Game.Tools.ANSI_Color;
+import Game.Tools.Index2D;
 import views.gamePanel.BoardPanel;
 import views.gamePanel.ControlPanel;
 
@@ -32,6 +33,10 @@ public class GamePanel extends JPanel{
 	private BoardPanel boardPanel;
 	
 	private ControlPanel controlPanel;
+	
+	private int selected = -1;
+	
+	private ArrayList<Index2D> placedTilesPosition = new ArrayList<>();
 
 	public GamePanel(GameType gameType, int nbPlayers) {
 		
@@ -64,12 +69,42 @@ public class GamePanel extends JPanel{
 	}
 
 	private void initControlPanel() {
-		this.controlPanel = new ControlPanel();
+		this.controlPanel = new ControlPanel(this);
 		this.add(this.controlPanel);
 	}
 
 	private void initBoardPanel() {
-		this.boardPanel = new BoardPanel();
+		this.boardPanel = new BoardPanel(this);
 		this.add(this.boardPanel);
+	}
+	
+	public void updatePanel() {
+		this.removeAll();
+		this.initBoardPanel();
+        this.initControlPanel();
+	}
+	
+	public ControlPanel getControlPanel() {
+		return this.controlPanel;
+	}
+	
+	public BoardPanel getBoardPanel() {
+		return this.boardPanel;
+	}
+	
+	public int getSelected() {
+		return this.selected;
+	}
+	
+	public void setSelected(int selected) {
+		this.selected = selected;
+	}
+	
+	public ArrayList<Index2D> getPlacedTilesPosition() {
+		return placedTilesPosition;
+	}
+	
+	public void resetPlacedTilesPosition() {
+		this.placedTilesPosition.clear();
 	}
 }

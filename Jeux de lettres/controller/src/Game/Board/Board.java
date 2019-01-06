@@ -246,7 +246,7 @@ public abstract class Board {
      * @return True if the word generated after the player played are correct, else otherwise.
      * @throws IllegalArgumentException If the list of tiles placed is empty
      */
-    protected boolean areWordsCreatedAreCorrect(ArrayList<Index2D> placedTiles, Direction direction) throws IllegalArgumentException {
+    public boolean areWordsCreatedAreCorrect(ArrayList<Index2D> placedTiles, Direction direction) throws IllegalArgumentException {
         if (placedTiles.size() == 0) {
             throw new IllegalArgumentException("No letter placed.");
         }
@@ -266,7 +266,7 @@ public abstract class Board {
      * @param rack        Rack where tiles will be placed.
      * @param placedTiles List of positions of squares that contains the tiles to remove.
      */
-    protected void retrieveTilesToRack(ArrayList<Tile> rack, ArrayList<Index2D> placedTiles) {
+    public void retrieveTilesToRack(ArrayList<Tile> rack, ArrayList<Index2D> placedTiles) {
         for (Index2D placedTile : placedTiles) {
             Tile removedTile = this.removeTile(placedTile.LINE, placedTile.COLUMN);
             if (removedTile.IS_JOKER()) {
@@ -404,14 +404,14 @@ public abstract class Board {
      * @param placedTiles       List of positions where the player has placed tile in the current turn.
      * @param player            Player to give the points to.
      */
-    protected abstract void countPoints(int firstSquareLine, int firstSquareColumn, Direction direction, ArrayList<Index2D> placedTiles, Player player);
+    public abstract void countPoints(int firstSquareLine, int firstSquareColumn, Direction direction, ArrayList<Index2D> placedTiles, Player player);
 
     /**
      * Minimum number of letters that needs to be placed by the player.
      *
      * @return Minimum amount.
      */
-    protected abstract int MIN_LETTER_PLACED_COUNT();
+    public abstract int MIN_LETTER_PLACED_COUNT();
     
     public int getBoardSize() {
     	return BOARD_SIZE();
