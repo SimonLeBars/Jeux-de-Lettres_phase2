@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Game.Tile.Tile;
+import listeners.buttonsPanelListener.BtnValiderListener;
 import listeners.exchangeLettersListeners.ExchangeBtnAnnulerListener;
+import listeners.exchangeLettersListeners.ExchangeBtnValiderListener;
 import listeners.exchangeLettersListeners.ExchangeRackListener;
 
 public class ExchangeLettersFrame extends JFrame{
@@ -62,6 +64,7 @@ public class ExchangeLettersFrame extends JFrame{
 	private void initBtnPanel() {
 		this.btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
 		
+		this.btnValider.addActionListener(new ExchangeBtnValiderListener(this));
 		this.btnPanel.add(btnValider);
 		
 		this.btnAnnuler.addActionListener(new ExchangeBtnAnnulerListener(this));

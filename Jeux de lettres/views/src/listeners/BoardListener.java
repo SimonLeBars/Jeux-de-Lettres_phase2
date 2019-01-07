@@ -38,7 +38,10 @@ public class BoardListener implements MouseListener{
 		System.out.println(line+":"+column);
 		System.out.println(selected);
 		
-		if(selected != -1 && line<boardSize && column<boardSize) {
+		if(selected == -1) {
+			
+		}
+		else if(line<boardSize && column<boardSize) {
 			this.gamePanel.getPlacedTilesPosition().add(new Index2D(line, column));
 			AppFrame.game.getBoard().playTile(line, column, rack.get(selected));
 			rack.remove(selected);
