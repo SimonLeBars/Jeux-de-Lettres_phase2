@@ -59,7 +59,6 @@ public class BoardPanel extends JPanel{
 		
 		Image offscreen = createImage(sideLenght, sideLenght);
 		
-		//TODO sortir le chargement des images
 		for(int i = 0; i<boardSize; i++) {
 			for(int j = 0; j<boardSize; j++) {
 				

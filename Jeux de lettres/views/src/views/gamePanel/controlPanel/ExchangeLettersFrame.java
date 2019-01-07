@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Game.Tile.Tile;
-import listeners.buttonsPanelListener.BtnValiderListener;
 import listeners.exchangeLettersListeners.ExchangeBtnAnnulerListener;
 import listeners.exchangeLettersListeners.ExchangeBtnValiderListener;
 import listeners.exchangeLettersListeners.ExchangeRackListener;
@@ -86,7 +85,7 @@ public class ExchangeLettersFrame extends JFrame{
 			
 			button.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
 			
-			button.addActionListener(new ExchangeRackListener());
+			button.addActionListener(new ExchangeRackListener(this, tile));
 			
 			this.rackPanel.add(button);
 		}
@@ -103,5 +102,9 @@ public class ExchangeLettersFrame extends JFrame{
 		}else {
 			return Toolkit.getDefaultToolkit().getImage(FILE_PREFIXE+"cur_"+String.valueOf(letter).toLowerCase()+".gif");
 		}
+	}
+	
+	public ArrayList<Tile> getSelectedTiles(){
+		return this.selectedTiles;
 	}
 }

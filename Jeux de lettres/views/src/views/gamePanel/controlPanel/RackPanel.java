@@ -66,18 +66,11 @@ public class RackPanel extends JPanel{
 
 		for(int i = 0; i<playerRack.size(); i++) {
 			
-			//TODO suppr
-			System.out.println(playerRack.get(i).getCharacter());
-			
 			JButton button = new JButton();
 			ImageIcon icon = new ImageIcon(getTileImage(i));
 			button.setIcon(icon);
 			if(i == this.selected) {
 				button.setBorder(new LineBorder(Color.BLUE, 5));
-				
-				//TODO suppr
-				System.out.println("Border set : "+this.getSelected());
-				
 			}else {
 				button.setBorder(new EmptyBorder(0, 0, 0, 0));
 			}
@@ -112,10 +105,6 @@ public class RackPanel extends JPanel{
 			for(int i = 0; i<tilesBtn.size(); i++) {
 				if(i == this.selected) {
 					tilesBtn.get(i).setBorder(new LineBorder(Color.BLUE, 5));
-					
-					//TODO suppr
-					System.out.println("Border set : "+this.getSelected());
-					
 				}else {
 					tilesBtn.get(i).setBorder(new EmptyBorder(0, 0, 0, 0));
 				}

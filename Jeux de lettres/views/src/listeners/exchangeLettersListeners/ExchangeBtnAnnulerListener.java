@@ -18,7 +18,6 @@ public class ExchangeBtnAnnulerListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		exchangeLettersFrame.dispatchEvent(new WindowEvent(exchangeLettersFrame, WindowEvent.WINDOW_CLOSING));
-
 	}
 	
 }

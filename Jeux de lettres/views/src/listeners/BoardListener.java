@@ -34,14 +34,13 @@ public class BoardListener implements MouseListener{
 		int line = Math.floorDiv(e.getY(), sideLenght/boardSize);
 		int column = Math.floorDiv(e.getX(), sideLenght/boardSize);
 		
-		//TODO suppr
-		System.out.println(line+":"+column);
-		System.out.println(selected);
-		
 		if(selected == -1) {
-			
+			if(!AppFrame.game.getBoard().getSquare(line, column).isEmpty()) {
+				this.retrieveTileToRack(line, column);
+			}
 		}
-		else if(line<boardSize && column<boardSize) {
+		else if(line<boardSize && column<boardSize &&
+				AppFrame.game.getBoard().getSquare(line, column).isEmpty()) {
 			this.gamePanel.getPlacedTilesPosition().add(new Index2D(line, column));
 			AppFrame.game.getBoard().playTile(line, column, rack.get(selected));
 			rack.remove(selected);
@@ -52,6 +51,25 @@ public class BoardListener implements MouseListener{
 		
 		this.gamePanel.getBoardPanel().repaint();
 		AppFrame.appframe.updateGamePanel();
+	}
+
+	private void retrieveTileToRack(int line, int column) {
+		ArrayList<Index2D> placedTiles = AppFrame.appframe.gamePanel.getPlacedTilesPosition();
+		for(Index2D location : placedTiles) {
+			if(location.LINE == line && location.COLUMN == column) {
+				
+				
+				ArrayList<Tile> rack = AppFrame.game.getCurrentPlayer().getRack();
+				ArrayList<Index2D> tile = new ArrayList<Index2D>();
+				tile.add(new Index2D(line, column));
+				AppFrame.game.getBoard().retrieveTilesToRack(rack, tile);
+				
+				placedTiles.remove(location);
+				
+				AppFrame.appframe.updateGamePanel();
+				return;
+			}
+		}
 	}
 
 	@Override

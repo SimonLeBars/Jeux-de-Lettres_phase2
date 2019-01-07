@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import Game.Gameplay.GameType;
 import listeners.buttonsPanelListener.BtnEchangerListener;
+import listeners.buttonsPanelListener.BtnPasserListener;
 import listeners.buttonsPanelListener.BtnValiderListener;
 import views.AppFrame;
 import views.GamePanel;
@@ -50,6 +51,7 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	}
 
 	private void initBtnPasser() {
+		this.btnPasser.addActionListener(new BtnPasserListener());
 		this.add(btnPasser);
 	}
 

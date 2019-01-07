@@ -97,9 +97,6 @@ public class BtnValiderListener implements ActionListener{
 	}
 
 	private void verifyWord(int line, int column, int max, Direction direction) {
-		// TODO verifier => pas de trou entre les lettres
-		// + mot valide (voir cas des jokers)
-		// + lancer l'ajout des points
 		
 		int i = -1;
 		if(direction==Direction.HORIZONTAL) {
@@ -115,7 +112,6 @@ public class BtnValiderListener implements ActionListener{
 				i++;
 			}
 			if(board.getSquare(line, i).isEmpty()) {
-				//TODO
 				this.showWarn("Vous ne pouvez placer qu'un seul mot par tour");
 				this.cancelTurn();
 				return;
@@ -125,7 +121,6 @@ public class BtnValiderListener implements ActionListener{
 				i++;
 			}
 			if(board.getSquare(i, column).isEmpty()) {
-				//TODO
 				this.showWarn("Vous ne pouvez placer qu'un seul mot par tour");
 				this.cancelTurn();
 				return;
@@ -156,8 +151,24 @@ public class BtnValiderListener implements ActionListener{
 		
 		this.gamePanel.resetPlacedTilesPosition();
 		
+		if(this.gameFinished()) {
+			return;
+		}
+		
 		game.getNextPlayer();
 		AppFrame.appframe.updateGamePanel();
+	}
+
+	private boolean gameFinished() {
+		if(AppFrame.game.isFinished()) {
+			JOptionPane.showMessageDialog(gamePanel, this.endGameMessage(), "Fin du Jeu", JOptionPane.INFORMATION_MESSAGE);
+		}
+		return false;
+	}
+
+	private Object endGameMessage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private boolean wordLinkedToMiddleSquare(int line, int column, int max, Direction direction) {
@@ -173,7 +184,7 @@ public class BtnValiderListener implements ActionListener{
 				if(line<board.getBoardSize()-1 && ! board.getSquare(line+1, i).isEmpty()) return true;
 			}
 		}else {
-			for(int i = column; i<=max; i++) {
+			for(int i = line; i<=max; i++) {
 				if(idOnMiddleSquare(i, column, board) 
 						|| !isInPlacedTiles(i,column, placedTiles)) return true;
 				if(column>0 && !board.getSquare(i, column-1).isEmpty()) return true;
