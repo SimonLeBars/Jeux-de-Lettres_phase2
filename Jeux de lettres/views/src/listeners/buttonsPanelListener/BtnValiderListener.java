@@ -67,7 +67,7 @@ public class BtnValiderListener implements ActionListener{
 		while(min>0 && !board.getSquare(min-1, placedTilesPosition.get(0).COLUMN).isEmpty()) {
 			min--;
 		}
-		while(max<board.getBoardSize()-1 && !board.getSquare(placedTilesPosition.get(0).COLUMN, max+1).isEmpty()) {
+		while(max<board.getBoardSize()-1 && !board.getSquare(max+1, placedTilesPosition.get(0).COLUMN).isEmpty()) {
 			max++;
 		}
 		

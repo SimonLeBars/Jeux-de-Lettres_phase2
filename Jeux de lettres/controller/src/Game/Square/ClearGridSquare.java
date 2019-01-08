@@ -1,9 +1,11 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
 
-public class ClearGridSquare extends FundoxSquareImplementation implements FundoxSquare {
+public class ClearGridSquare extends FundoxSquareImplementation implements FundoxSquare, Serializable {
     /**
      * Default value of the bonus used state indicator (true = not a bonus in Fundox).
      */

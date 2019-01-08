@@ -1,9 +1,11 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
 
-public class DoubleWordSquare extends SquareImplementation implements ScrabbleSquare {
+public class DoubleWordSquare extends SquareImplementation implements ScrabbleSquare, Serializable {
     /**
      * Multiplier bonus used for Scrabble. Acts on the value of the contained tile.
      */

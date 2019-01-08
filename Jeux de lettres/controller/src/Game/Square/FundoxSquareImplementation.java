@@ -1,8 +1,10 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Gameplay.Player;
 
-abstract class FundoxSquareImplementation extends SquareImplementation implements FundoxSquare {
+abstract class FundoxSquareImplementation extends SquareImplementation implements FundoxSquare, Serializable {
     /**
      * Owner of the square. Used to recalculate the score based on territories.
      */

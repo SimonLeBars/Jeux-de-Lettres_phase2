@@ -1,12 +1,14 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
 
 /**
  * Classic square for Scrabble and Fundox
  */
-public class NormalSquare extends FundoxSquareImplementation implements ScrabbleSquare, FundoxSquare {
+public class NormalSquare extends FundoxSquareImplementation implements ScrabbleSquare, FundoxSquare, Serializable {
     /**
      * Color of the square. Grey makes bonus colors and letters more visible on a dark console.
      */

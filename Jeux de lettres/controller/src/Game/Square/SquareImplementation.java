@@ -1,8 +1,10 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Tile.Tile;
 
-public abstract class SquareImplementation implements Square {
+public abstract class SquareImplementation implements Square, Serializable {
     /**
      * Tile contained in the square, can be null.
      */

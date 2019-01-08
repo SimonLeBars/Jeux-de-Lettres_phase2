@@ -1,13 +1,15 @@
 package Game.Square;
 
 
+import java.io.Serializable;
+
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
 
 /**
  * Square (or case) in a grid of Scrabble/Fundox.
  */
-public interface Square {
+public interface Square extends Serializable{
 
     /**
      * Reset code for text color.

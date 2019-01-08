@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import Game.Board.Board;
 import Game.Gameplay.Game;
 import Game.Gameplay.GameType;
 
@@ -20,6 +21,10 @@ public class AppFrame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public static final String GAME_SAVE_PATH = "game_saved.data";
+
+	public static final String BOARD_SAVE_PATH = "board_saved.data";
 
 	public static void main(String[] args) {
 		AppFrame.appframe = new AppFrame();
@@ -74,5 +79,13 @@ public class AppFrame extends JFrame{
 		Dimension gameFrameSize = this.getSize();
 		this.setSize(gameFrameSize.width+1, gameFrameSize.height+1);
 		this.setSize(gameFrameSize.width, gameFrameSize.height);
+	}
+
+	public void initGamePanel(Game game, Board board) {
+		this.getContentPane().removeAll();
+		this.setSize(800, 600);
+		this.gamePanel = new GamePanel(game, board);
+		this.getContentPane().add(gamePanel);
+		this.relocate();
 	}
 }

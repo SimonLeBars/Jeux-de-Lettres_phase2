@@ -7,12 +7,13 @@ import Game.Tile.Tile;
 import Game.Tools.Direction;
 import Game.Tools.Index2D;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Grid of squares used to play Scrabble or Fundox.
  */
-public abstract class Board {
+public abstract class Board implements Serializable {
     /**
      * Indicates whether there are tiles placed on the board.
      */

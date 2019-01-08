@@ -104,6 +104,7 @@ public class RackPanel extends JPanel{
 		if(tilesBtn!=null) {
 			for(int i = 0; i<tilesBtn.size(); i++) {
 				if(i == this.selected) {
+					tilesBtn.get(i).setBorderPainted(true);
 					tilesBtn.get(i).setBorder(new LineBorder(Color.BLUE, 5));
 				}else {
 					tilesBtn.get(i).setBorder(new EmptyBorder(0, 0, 0, 0));

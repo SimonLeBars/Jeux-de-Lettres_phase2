@@ -1,9 +1,11 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
 
-public class BonusSquare extends FundoxSquareImplementation implements FundoxSquare {
+public class BonusSquare extends FundoxSquareImplementation implements FundoxSquare, Serializable {
     /**
      * Default value of the bonus used state indicator (false = a bonus in Fundox).
      */

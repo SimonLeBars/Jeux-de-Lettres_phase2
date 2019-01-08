@@ -3,12 +3,13 @@ package Game.Gameplay;
 import Game.Tile.Tile;
 import Game.Tools.ANSI_Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Player
  */
-public class Player {
+public class Player implements Serializable{
     /**
      * Displayed name of the player.
      */
