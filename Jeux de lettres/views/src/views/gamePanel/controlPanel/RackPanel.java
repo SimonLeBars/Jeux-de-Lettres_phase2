@@ -70,7 +70,7 @@ public class RackPanel extends JPanel{
 			ImageIcon icon = new ImageIcon(getTileImage(i));
 			button.setIcon(icon);
 			if(i == this.selected) {
-				button.setBorder(new LineBorder(Color.BLUE, 5));
+				button.setBorder(new LineBorder(Color.BLUE, 3));
 			}else {
 				button.setBorder(new EmptyBorder(0, 0, 0, 0));
 			}

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -18,7 +18,7 @@ import listeners.exchangeLettersListeners.ExchangeBtnAnnulerListener;
 import listeners.exchangeLettersListeners.ExchangeBtnValiderListener;
 import listeners.exchangeLettersListeners.ExchangeRackListener;
 
-public class ExchangeLettersFrame extends JFrame{
+public class ExchangeLettersFrame extends JDialog{
 	
 	/**
 	 * 
@@ -38,7 +38,9 @@ public class ExchangeLettersFrame extends JFrame{
 	private ArrayList<Tile> selectedTiles = new ArrayList<Tile>();
 
 	public ExchangeLettersFrame(ArrayList<Tile> rack, ArrayList<Tile> bag) {
+				
 		
+		this.setModal(true);
 		this.setTitle("Echanger lettres");
 		this.setSize(400, 200);
 		

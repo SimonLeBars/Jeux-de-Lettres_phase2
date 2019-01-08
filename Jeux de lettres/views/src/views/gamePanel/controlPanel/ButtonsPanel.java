@@ -4,20 +4,16 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.sound.midi.ControllerEventListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import Game.Gameplay.GameType;
 import listeners.buttonsPanelListener.BtnEchangerListener;
 import listeners.buttonsPanelListener.BtnPasserListener;
 import listeners.buttonsPanelListener.BtnValiderListener;
 import views.AppFrame;
 import views.GamePanel;
-import views.gamePanel.BoardPanel;
-import views.gamePanel.ControlPanel;
 
 public class ButtonsPanel extends JPanel implements ActionListener{
 	
