@@ -7,12 +7,13 @@ import Game.Square.*;
 import Game.Tools.Direction;
 import Game.Tools.Index2D;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Grid used to play Scrabble.
  */
-public class ScrabbleBoard extends Board {
+public class ScrabbleBoard extends Board implements Serializable{
     /**
      * Width and height of the board.
      */

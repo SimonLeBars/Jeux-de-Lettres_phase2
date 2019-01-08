@@ -10,6 +10,7 @@ import Game.Tools.Direction;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +19,7 @@ import java.util.Comparator;
 /**
  * Game of Scrabble or Fundox.
  */
-public class Game {
+public class Game implements Serializable{
     /**
      * Max number of tiles on a rack.
      */
@@ -350,6 +351,10 @@ public class Game {
     
     public Board getBoard() {
     	return this.board;
+    }
+    
+    public void setBoard(Board board) {
+    	this.board = board;
     }
     
     public GameType getGameType() {

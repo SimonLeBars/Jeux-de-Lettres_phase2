@@ -1,9 +1,11 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 /**
  * Describes properties specific to Scrabble squares.
  */
-public interface ScrabbleSquare extends Square {
+public interface ScrabbleSquare extends Square, Serializable {
 
     /**
      * The coefficient by which the letter's value should be multiplied.

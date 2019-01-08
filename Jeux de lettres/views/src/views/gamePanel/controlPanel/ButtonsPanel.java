@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import Game.Gameplay.GameType;
 import listeners.buttonsPanelListener.BtnEchangerListener;
 import listeners.buttonsPanelListener.BtnPasserListener;
+import listeners.buttonsPanelListener.BtnSauvegarderListener;
 import listeners.buttonsPanelListener.BtnValiderListener;
 import views.AppFrame;
 import views.GamePanel;
@@ -34,6 +35,8 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 	
 	private JButton btnEchanger = new JButton("Echanger lettres");
 	
+	private JButton btnSauvegarder = new JButton("Sauvegarder");
+	
 	private JButton btnQuitter = new JButton("Quitter");
 	
 	public ButtonsPanel(GamePanel gamePanel) {
@@ -42,12 +45,25 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		this.initBtnValider();
-		this.add(Box.createRigidArea(new Dimension(0,20)));
-		this.initBtnEchanger();
+		
+		if(AppFrame.game.getGameType()==GameType.SCRABBLE) {
+			this.add(Box.createRigidArea(new Dimension(0,20)));
+			this.initBtnEchanger();
+		}
+		
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.initBtnPasser();
+		
+		this.add(Box.createRigidArea(new Dimension(0,20)));
+		this.initBtnSauvegarder();
+		
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		this.initBtnQuitter();
+	}
+
+	private void initBtnSauvegarder() {
+		this.btnSauvegarder.addActionListener(new BtnSauvegarderListener());
+		this.add(btnSauvegarder);
 	}
 
 	private void initBtnPasser() {

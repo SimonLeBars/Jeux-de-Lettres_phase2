@@ -8,12 +8,13 @@ import Game.Square.NormalSquare;
 import Game.Tools.Direction;
 import Game.Tools.Index2D;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Grid used to play Fundox.
  */
-public class FundoxBoard extends Board {
+public class FundoxBoard extends Board implements Serializable {
     /**
      * Width and height of the board.
      */

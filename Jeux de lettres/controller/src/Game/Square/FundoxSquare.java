@@ -1,11 +1,13 @@
 package Game.Square;
 
+import java.io.Serializable;
+
 import Game.Gameplay.Player;
 
 /**
  * Describes properties specific to Fundox squares.
  */
-public interface FundoxSquare extends Square {
+public interface FundoxSquare extends Square, Serializable {
 
     /**
      * Indicates whether the square is owned by a player or not.

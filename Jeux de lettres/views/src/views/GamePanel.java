@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import Game.Board.Board;
 import Game.Gameplay.Dictionary;
 import Game.Gameplay.Game;
 import Game.Gameplay.GameType;
@@ -50,8 +51,30 @@ public class GamePanel extends JPanel{
         this.setupPlayers(nbPlayers);
         
         AppFrame.game.setupBoardAndRacks();
+        if(AppFrame.game.getGameType()==GameType.FUNDOX) {
+        	AppFrame.game.refillRack(AppFrame.game.getCurrentPlayer().getRack(),
+        			AppFrame.game.getBag(),
+        			AppFrame.game.TILES_COUNT_ON_RACK);
+        }
         
         this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        
+        this.initBoardPanel();
+        this.initControlPanel();
+	}
+
+	public GamePanel(Game game, Board board) {
+		try {
+            Dictionary.load(fileDicoPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
+		AppFrame.game = game;
+		AppFrame.game.setBoard(board);
+		
+		this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         
         this.initBoardPanel();

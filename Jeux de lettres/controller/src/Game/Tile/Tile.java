@@ -1,13 +1,14 @@
 package Game.Tile;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
  * Tile used in a scrabble-like game. It has a letter assigned to itself and a value.
  */
-public class Tile implements Comparable<Tile>, Comparator<Tile> {
+public class Tile implements Comparable<Tile>, Comparator<Tile>, Serializable {
     /**
      * String used to print the inside of a square in the console when there is no tile inside.
      */

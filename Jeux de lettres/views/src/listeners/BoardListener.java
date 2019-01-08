@@ -43,9 +43,12 @@ public class BoardListener implements MouseListener{
 				AppFrame.game.getBoard().getSquare(line, column).isEmpty()) {
 			this.gamePanel.getPlacedTilesPosition().add(new Index2D(line, column));
 			AppFrame.game.getBoard().playTile(line, column, rack.get(selected));
+			
+			if(rack.get(selected).IS_JOKER()) {
+				
+			}
+			
 			rack.remove(selected);
-			System.out.println("Tile added : selected = "
-			+selected+", location = "+line+":"+column);
 			rackPanel.setSelected(-1);
 		}
 		
