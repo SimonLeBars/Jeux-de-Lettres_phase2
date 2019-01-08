@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Game.Gameplay.GameType;
 import listeners.buttonsPanelListener.BtnEchangerListener;
 import listeners.buttonsPanelListener.BtnPasserListener;
 import listeners.buttonsPanelListener.BtnSauvegarderListener;
